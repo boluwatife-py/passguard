@@ -136,7 +136,7 @@ class TestPasswordStr:
             password: PasswordStr
 
         model = Model(password="StrongPass123!")
-        assert isinstance(model.password, PasswordStr)
+        assert isinstance(model.password, str)
         assert model.password == "StrongPass123!"
 
     def test_password_str_invalid(self):

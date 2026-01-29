@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any, Optional, Annotated
 
-from pydantic import Field, BaseModel, field_validator
-from pydantic_core import core_schema
+from pydantic import AfterValidator
 
 from ..validator import PasswordValidator
 from ..policy import PasswordPolicy
@@ -147,52 +146,24 @@ class PasswordFieldAnnotation:
         self.context_fields = context_fields or []
 
 
-class PasswordStr(str):
-    """
-    Simple password type using default Passguard policy.
-    
-    Usage:
-        from pydantic import BaseModel
-        from passguard.integrations.pydantic import PasswordStr
-        
-        class RegisterRequest(BaseModel):
-            password: PasswordStr
-    """
+def validate_password(value: str) -> str:
+    if not isinstance(value, str):
+        raise TypeError("Password must be a string")
 
-    def __new__(cls, value: str) -> PasswordStr:
-        """Create a new PasswordStr instance from a string."""
-        return super().__new__(cls, value)
+    validator = PasswordValidator(policy=PasswordPolicy.default())
 
-    @classmethod
-    def __get_pydantic_core_schema__(
-        cls,
-        source_type: Any,
-        handler: Any,
-    ) -> core_schema.CoreSchema:
-        """Pydantic v2 schema generation for PasswordStr."""
-        def validate_password(value: str, info: Any) -> PasswordStr:
-            if not isinstance(value, str):
-                raise TypeError("Password must be a string")
+    result = validator.evaluate(
+        value,
+        context_data={},
+        min_score=100,
+    )
 
-            validator = PasswordValidator(policy=PasswordPolicy.default())
-
-            result = validator.evaluate(
-                value,
-                context_data={},
-                min_score=100,
-            )
-
-            if not result.valid:
-                raise ValueError(
-                    "; ".join(issue.message for issue in result.issues)
-                )
-
-            return cls(value)
-
-        return core_schema.with_info_plain_validator_function(
-            validate_password,
-            serialization=core_schema.plain_serializer_function_ser_schema(
-                lambda x: str(x),
-                return_schema=core_schema.str_schema(),
-            ),
+    if not result.valid:
+        raise ValueError(
+            "; ".join(issue.message for issue in result.issues)
         )
+
+    return value
+
+
+PasswordStr = Annotated[str, AfterValidator(validate_password)]
