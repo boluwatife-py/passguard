@@ -9,4 +9,3 @@ try:
     __all__ = ["PasswordField", "PasswordStr"]
 except ImportError:
     __all__ = []
-
