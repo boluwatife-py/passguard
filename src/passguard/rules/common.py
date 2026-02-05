@@ -40,4 +40,3 @@ class CommonPasswordRule(PasswordRule):
                 severity=self.severity,
             )
         return None
-

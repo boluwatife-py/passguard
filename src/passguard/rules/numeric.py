@@ -36,4 +36,3 @@ class NumericOnlyRule(PasswordRule):
                 severity=self.severity,
             )
         return None
-

@@ -39,4 +39,3 @@ class MinLengthRule(PasswordRule):
                 severity=self.severity,
             )
         return None
-
