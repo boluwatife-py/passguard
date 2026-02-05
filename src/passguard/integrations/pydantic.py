@@ -170,3 +170,4 @@ def validate_password(value: str) -> str:
 
 
 PasswordStr = Annotated[str, AfterValidator(validate_password)]
+

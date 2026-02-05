@@ -31,5 +31,3 @@ jobs:
 
       - name: Type check with Pyright (Pylance)
         uses: jakebailey/pyright-action@v1
-        with:
-          version: latest

@@ -22,3 +22,4 @@ def load_common_passwords() -> Set[str]:
         pass
 
     return passwords
+

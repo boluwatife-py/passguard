@@ -129,3 +129,4 @@ class SymbolRule(PasswordRule):
                 severity=self.severity,
             )
         return None
+
