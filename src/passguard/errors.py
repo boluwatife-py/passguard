@@ -1,3 +1,4 @@
+"""Custom exceptions for passguard."""
 class PassGuardError(Exception):
     """Base exception for passguard."""
 

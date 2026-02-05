@@ -1,6 +1,7 @@
+"""Numeric password rules."""
 from __future__ import annotations
 import re
-from typing import Optional
+
 
 from .base import PasswordRule
 from ..results import Issue, Severity
@@ -16,9 +17,6 @@ class NumericOnlyRule(PasswordRule):
 
     code = "numeric_only"
     severity = Severity.HIGH
-
-    def __init__(self, severity: Optional[Severity] = None) -> None:
-        super().__init__(severity)
 
     def check(self, password: str, context) -> Issue | None:
         """

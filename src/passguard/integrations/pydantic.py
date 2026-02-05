@@ -1,3 +1,4 @@
+"""Pydantic integration module."""
 from __future__ import annotations
 
 from typing import Any, Optional, Annotated
@@ -44,7 +45,8 @@ class PasswordField:
         Args:
             min_score: Minimum score (0-100) required for password to be valid
             policy: Optional custom PasswordPolicy. Defaults to PasswordPolicy.default()
-            context_fields: Optional list of field names to extract as context (e.g., username, email)
+            context_fields: Optional list of field names to extract as context
+                           (e.g., username, email)
         """
         self.policy = policy or PasswordPolicy.default()
         self.min_score = min_score
@@ -77,7 +79,7 @@ class PasswordField:
         actual_policy = policy or PasswordPolicy.default()
         actual_context_fields = context_fields or []
 
-        def validate_password(value: str, info: Any) -> str:
+        def validate_password_field(value: str, info: Any) -> str:
             """Validate password using Passguard rules."""
             if not isinstance(value, str):
                 raise TypeError("Password must be a string")
@@ -111,7 +113,7 @@ class PasswordField:
 
             return value
 
-        return validate_password
+        return validate_password_field
 
 
 class PasswordFieldAnnotation:
@@ -147,6 +149,7 @@ class PasswordFieldAnnotation:
 
 
 def validate_password(value: str) -> str:
+    """Validate password using default policy."""
     if not isinstance(value, str):
         raise TypeError("Password must be a string")
 

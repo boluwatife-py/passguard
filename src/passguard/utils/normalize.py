@@ -1,3 +1,4 @@
+"""Text normalization utilities."""
 import re
 
 # Simple leetspeak mapping for basic substitutions

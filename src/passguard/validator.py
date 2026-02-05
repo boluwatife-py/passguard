@@ -1,10 +1,11 @@
+"""Password validator module."""
 from __future__ import annotations
-from typing import Optional, Iterable, Sequence
+from typing import Optional, Sequence
 
 from .context import Context
 from .policy import PasswordPolicy
 from .results import ValidationResult, Issue
-from .rules.base import PasswordRule
+
 
 
 class PasswordValidator:
@@ -47,8 +48,6 @@ class PasswordValidator:
             self.policy.rules = [
                 rule for rule in self.policy.rules if rule.code not in self.disable_rules
             ]
-
-        print(__name__, self.policy)
     def evaluate(
         self,
         password: str,

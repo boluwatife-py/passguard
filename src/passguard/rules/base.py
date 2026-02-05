@@ -1,3 +1,4 @@
+"""Base class for password rules."""
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Optional
@@ -51,5 +52,3 @@ class PasswordRule(ABC):
         Returns:
             Issue if the password violates this rule, otherwise None
         """
-        pass
-

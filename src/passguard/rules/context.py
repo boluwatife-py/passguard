@@ -1,3 +1,4 @@
+"""Context-aware password rules."""
 from __future__ import annotations
 
 from typing import Iterable
@@ -31,8 +32,7 @@ class ContextRule(PasswordRule):
             if "@" in context.email:
                 local, domain = context.email.split("@", 1)
                 yield local
-                for part in domain.split("."):
-                    yield part
+                yield from domain.split(".")
 
         if context.first_name:
             yield context.first_name
@@ -42,8 +42,7 @@ class ContextRule(PasswordRule):
 
         if context.full_name:
             yield context.full_name
-            for part in context.full_name.split():
-                yield part
+            yield from context.full_name.split()
 
     def check(self, password: str, context: Context) -> Issue | None:
         if not password:

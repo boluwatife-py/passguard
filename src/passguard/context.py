@@ -1,3 +1,4 @@
+"""Context module for password validation."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -34,6 +35,7 @@ class Context:
         """
         # Helper to pick first present key
         def pick(*keys):
+            """Pick first present key."""
             for key in keys:
                 if key in data and data[key]:
                     return normalize_text(str(data[key]))

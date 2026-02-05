@@ -1,3 +1,4 @@
+"""Common password rules."""
 from __future__ import annotations
 from typing import Optional
 

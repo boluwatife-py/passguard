@@ -1,6 +1,7 @@
+"""Character set rules (uppercase, lowercase, digits, symbols)."""
 from __future__ import annotations
 import re
-from typing import Optional
+
 
 from .base import PasswordRule
 from ..results import Issue, Severity
@@ -16,9 +17,6 @@ class UppercaseRule(PasswordRule):
 
     code = "missing_uppercase"
     severity = Severity.MEDIUM
-
-    def __init__(self, severity: Optional[Severity] = None) -> None:
-        super().__init__(severity)
 
     def check(self, password: str, context) -> Issue | None:
         """
@@ -51,9 +49,6 @@ class LowercaseRule(PasswordRule):
     code = "missing_lowercase"
     severity = Severity.MEDIUM
 
-    def __init__(self, severity: Optional[Severity] = None) -> None:
-        super().__init__(severity)
-
     def check(self, password: str, context) -> Issue | None:
         """
         Check if the password contains at least one lowercase letter.
@@ -85,9 +80,6 @@ class DigitRule(PasswordRule):
     code = "missing_digit"
     severity = Severity.MEDIUM
 
-    def __init__(self, severity: Optional[Severity] = None) -> None:
-        super().__init__(severity)
-
     def check(self, password: str, context) -> Issue | None:
         """
         Check if the password contains at least one digit.
@@ -118,9 +110,6 @@ class SymbolRule(PasswordRule):
 
     code = "missing_symbol"
     severity = Severity.MEDIUM
-
-    def __init__(self, severity: Optional[Severity] = None) -> None:
-        super().__init__(severity)
 
     def check(self, password: str, context) -> Issue | None:
         """

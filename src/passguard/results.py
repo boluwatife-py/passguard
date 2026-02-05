@@ -1,3 +1,4 @@
+"""Validation results module."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -70,6 +71,7 @@ class ValidationResult:
 
     @property
     def has_critical_issues(self) -> bool:
+        """Check if result has any critical issues."""
         return any(
             issue.severity == Severity.CRITICAL
             for issue in self.issues
@@ -77,6 +79,7 @@ class ValidationResult:
 
     @property
     def issue_codes(self) -> set[str]:
+        """Get set of all issue codes."""
         return {issue.code for issue in self.issues}
 
     def to_dict(self) -> dict:
